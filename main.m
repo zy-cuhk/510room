@@ -42,7 +42,6 @@ waypoints_interval=0.050;path_interval=0.250;
 renovation_planes_waypoint_visualization(renovation_effective_waypoints,room_plane_edge_cell,renovation_plane_edge_cell,renovation_effective_waypaths);
 
 
-
 %% generating renovation cells containing waypaths 
 cell_length=0.55;
 cell_width=1.25;

@@ -1,11 +1,10 @@
-% function [renovation_cells_paths]=path_clustering(renovation_cells_waypaths)
+function [renovation_cells_paths]=renovation_path_clustering(renovation_cells_waypaths1)
 
-% renovation_cells_waypaths1=renovation_cells_waypaths;
-% renovation_cells_waypaths=renovation_cells_waypaths1{2}{1}{1};
+% clc,clear all, close all
+% data=load('data4.mat','renovation_cells_waypaths');
+% ground_boundaries=data.renovation_cells_waypaths{1}{1}{1};
 
-ground_boundaries=renovation_cells_waypaths;
-% 在这里，输入的格式为ground_boundaries(i,6),i:第i条线段
-%输出的格式为：boundary_cell{j}(k,6),第j个cell的第k条线段
+ground_boundaries=renovation_cells_waypaths1;
 boundary_num=size(ground_boundaries,1);
 flag1=ones(1,boundary_num);
 boundary_cell{1}(1,1:6)=ground_boundaries(1,1:6);
@@ -88,17 +87,41 @@ for i=1:1:size(boundary_cell,2)
         pathspoints(2*i,1:3)=mat1(1,1:3);
     end
 end
-
-for i=1:1:size(pathspoints,1)-1
-    renovation_cells_paths(i,1:3)=pathspoints(i,1:3);
-    renovation_cells_paths(i,4:6)=pathspoints(i+1,1:3);
+% pathspoints=sortrows(pathspoints);
+for i=1:1:size(pathspoints,1)/2
+   horizontal_pathspoints(i,1:3)=pathspoints(2*i-1,1:3);
+   horizontal_pathspoints(i,4:6)=pathspoints(2*i,1:3);
+end
+horizontal_pathspoints=sortrows(horizontal_pathspoints,6,'descend');
+for i=1:1:size(horizontal_pathspoints,1)
+    mat1(1,1:3)=horizontal_pathspoints(i,1:3);
+    mat1(2,1:3)=horizontal_pathspoints(i,4:6);
+    if mod(i,2)==1
+        mat1=sortrows(mat1,'ascend');
+    else
+        mat1=sortrows(mat1,'descend');
+    end
+    pathspoints1(2*i-1,1:3)=mat1(1,1:3);
+    pathspoints1(2*i,1:3)=mat1(2,1:3);
 end
 
-renovation_cells_paths=unique(renovation_cells_paths,'rows')
+for i=1:1:size(pathspoints1,1)-1
+    renovation_cells_paths(i,1:3)=pathspoints1(i,1:3);
+    renovation_cells_paths(i,4:6)=pathspoints1(i+1,1:3);
+end
 
+figure;
+for i=1:1:size(renovation_cells_paths,1)
+    x1=[renovation_cells_paths(i,1),renovation_cells_paths(i,4)];
+    y1=[renovation_cells_paths(i,2),renovation_cells_paths(i,5)];
+    z1=[renovation_cells_paths(i,3),renovation_cells_paths(i,6)];
+    plot3(x1,y1,z1,'k','LineWidth',1)
+    hold on;
+    axis equal;
+    view(-114,24);
+end
 
-% end
-% three important flags: flag
+end
 
 
 

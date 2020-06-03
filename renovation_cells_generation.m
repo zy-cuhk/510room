@@ -167,12 +167,14 @@ for i=1:1:size(renovation_cells_waypaths,2)
             a=renovation_cells_waypaths{i}{j}{k};
             b=renovation_path_clustering(a);
             renovation_cells_clustering_waypaths{i}{j}{k}=b;
-            if i==1 && j==1 && k==1
+            if i==2 && j==1 && k==1
                 renovation_cells_clustering_waypaths{i}{j}{k}
             end
         end
     end
 end
+
+
 
 %% add orientations into renovation path waypoints 
 theta_x=-pi/2;
