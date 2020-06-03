@@ -41,6 +41,8 @@ waypoints_interval=0.050;path_interval=0.250;
 [renovation_effective_waypoints,renovation_effective_waypaths,room_plane_boundary]=renovation_planes_waypoint_generation(room_plane_edge_cell,room_plane_norm_vector,room_vertices,room_plane_triangle_cell,waypoints_interval,path_interval,panning_distance1);
 renovation_planes_waypoint_visualization(renovation_effective_waypoints,room_plane_edge_cell,renovation_plane_edge_cell,renovation_effective_waypaths);
 
+
+
 %% generating renovation cells containing waypaths 
 cell_length=0.55;
 cell_width=1.25;
